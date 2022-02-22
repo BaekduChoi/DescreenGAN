@@ -1,0 +1,37 @@
+{
+	"datasets": {
+		"train": {
+			"root_img": "../descreening/images_div2k_all",
+			"root_halftone": "../descreening/halftones_div2k_all",
+			"img_type": ".png",
+			"batch_size": 4,
+			"n_workers": 4,
+			"use_aug": false
+		},
+		"val": {
+			"root_img": "../descreening/div2k_val_images",
+			"root_halftone": "../descreening/div2k_val_halftones",
+			"img_type": ".png"
+		}
+	},
+	
+	"solver": {
+		"learning_rate": 0.0002,
+		"lr_ratio": 4.0,
+		"lr_step": 20,
+		"lr_gamma": 0.9,
+		"num_epochs": 20,
+		"save_ckp_step": 1,
+		"use_pool": true,
+		"pretrain": false,
+		"pretrained_path": "./pretrained_cRaGAN/",
+		"ckp_path": "./pretrained_cRaGAN/epoch30.ckp",
+		"val_path": "./pretrained_cRaGAN/val/",
+		"prl_ckp_path": "./nongan_epoch20.ckp",
+		"lambda_perceptual": 1.0,
+		"lambda_detail": 0.01,
+		"lambda_adv": 0.005,
+		"beta1": 0.9,
+		"beta2": 0.999
+	}
+}
