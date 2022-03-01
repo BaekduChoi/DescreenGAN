@@ -26,12 +26,12 @@ class cRaGAN :
         self.device = torch.device('cuda') if cuda else torch.device('cpu')
 
         self.netG = DescreenNet()
-        self.netD = Discriminator(in_ch=1,sn=True)
+        self.netD = Unet(in_ch=1, sn=True)
 
         self.netG = self.netG.to(self.device)
         self.netD = self.netD.to(self.device)
 
-        self.perceptual_loss = PerceptualLoss(loss_type='l1',feature_layers=[2,3]).to(self.device)
+        self.perceptual_loss = PerceptualLoss(loss_type='l1',feature_layers=[2,3],before_act=True).to(self.device)
 
     def getparams(self) :
         # reading the hyperparameter values from the json file

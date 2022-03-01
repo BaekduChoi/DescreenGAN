@@ -1,0 +1,15 @@
+{
+	"datasets": {
+		"test": {
+			"root_img": "../descreening/test_img/",
+			"root_halftone": "../descreening/test_halftone/",
+			"img_type": ".png",
+			"n_workers": 1
+		}
+	},
+	
+	"solver": {
+		"ckp_path": "./pretrained_cRaGAN/epoch20.ckp",
+		"testpath": "./cRaGAN_test/"
+	}
+}

@@ -1,8 +1,8 @@
 {
 	"datasets": {
 		"train": {
-			"root_img": "../descreening/images_div2k_all",
-			"root_halftone": "../descreening/halftones_div2k_all",
+			"root_img": "../dbsnet/images_div2k_all",
+			"root_halftone": "../dbsnet/halftones_div2k_all",
 			"img_type": ".png",
 			"batch_size": 4,
 			"n_workers": 4,
@@ -30,7 +30,6 @@
 		"prl_ckp_path": null,
 		"lambda_perceptual": 0.01,
 		"lambda_detail": 1.0,
-		"lambda_adv": 0.005,
 		"beta1": 0.9,
 		"beta2": 0.999
 	}
