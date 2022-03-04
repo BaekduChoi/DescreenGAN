@@ -1,4 +1,4 @@
-# Photorealistic descreening of halftone images using conditional generative adversarial networks
+# Photorealistic descreening of halftone images using conditional generative adversarial networks (tentative title)
 
 This is an implementation of photorealistic descreening using cGANs in [PyTorch](https://pytorch.org/). 
 
