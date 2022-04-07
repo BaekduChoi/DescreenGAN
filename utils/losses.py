@@ -146,8 +146,8 @@ class PerceptualLoss(torch.nn.Module):
         loss = 0.
 
         for i,block in enumerate(self.blocks) :
-            x = block(x)
-            y = block(y)
+            x = block(x.clone())
+            y = block(y.clone())
 
             if i in self.feature_layers :
                 loss += self.loss(x,y)
