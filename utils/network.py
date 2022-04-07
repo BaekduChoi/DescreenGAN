@@ -22,33 +22,33 @@ class Discriminator(nn.Module) :
         if bn :
             L = [
                 nn.Conv2d(in_ch,nch,kernel_size=4,stride=2,padding=1,padding_mode='circular'),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch,nch*2,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
                 nn.BatchNorm2d(nch*2),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*2,nch*4,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
                 nn.BatchNorm2d(nch*4),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*4,nch*8,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
                 nn.BatchNorm2d(nch*8),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*8,nch*8,kernel_size=4,stride=1,padding=1,bias=False,padding_mode='circular'),
                 nn.BatchNorm2d(nch*8),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*8,1,kernel_size=4,stride=1,padding=1,padding_mode='circular')
             ]
         else :
             L = [
                 nn.Conv2d(in_ch,nch,kernel_size=4,stride=2,padding=1,padding_mode='circular'),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch,nch*2,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*2,nch*4,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*4,nch*8,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*8,nch*8,kernel_size=4,stride=1,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2,True),
+                nn.LeakyReLU(0.2),
                 nn.Conv2d(nch*8,1,kernel_size=4,stride=1,padding=1,padding_mode='circular')
             ]
         
