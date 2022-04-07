@@ -16,7 +16,7 @@
 	},
 	
 	"solver": {
-		"learning_rate": 0.0002,
+		"learning_rate": 0.0005,
 		"lr_ratio": 4.0,
 		"lr_step": 20,
 		"lr_gamma": 0.9,
@@ -24,12 +24,13 @@
 		"save_ckp_step": 1,
 		"use_pool": true,
 		"pretrain": false,
-		"pretrained_path": "./pretrained_nongan/",
-		"ckp_path": "./pretrained_nongan/epoch30.ckp",
-		"val_path": "./pretrained_nongan/val/",
-		"prl_ckp_path": null,
-		"lambda_perceptual": 0.01,
+		"pretrained_path": "./pretrained_cRaGAN_nch32_numblk8/",
+		"ckp_path": "./pretrained_cRaGAN_nch32_numblk8/epoch12.ckp",
+		"val_path": "./pretrained_cRaGAN_nch32_numblk8/val/",
+		"prl_ckp_path": "./pretrained_nongan_nch32_numblk8/epoch20.ckp",
+		"lambda_perceptual": 1.0,
 		"lambda_detail": 1.0,
+		"lambda_adv": 0.1,
 		"beta1": 0.9,
 		"beta2": 0.999
 	}

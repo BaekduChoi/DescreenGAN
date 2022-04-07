@@ -24,13 +24,12 @@
 		"save_ckp_step": 1,
 		"use_pool": true,
 		"pretrain": false,
-		"pretrained_path": "./pretrained_cRaGAN_Unet_3/",
-		"ckp_path": "./pretrained_cRaGAN_Unet_3/epoch10.ckp",
-		"val_path": "./pretrained_cRaGAN_Unet_3/val/",
-		"prl_ckp_path": "./pretrained_nongan/epoch20.ckp",
-		"lambda_perceptual": 1.0,
+		"pretrained_path": "./pretrained_nongan_nch32_numblk8/",
+		"ckp_path": "./pretrained_nongan_nch32_numblk8/epoch13.ckp",
+		"val_path": "./pretrained_nongan_nch32_numblk8/val/",
+		"prl_ckp_path": null,
+		"lambda_perceptual": 0.01,
 		"lambda_detail": 1.0,
-		"lambda_adv": 0.1,
 		"beta1": 0.9,
 		"beta2": 0.999
 	}

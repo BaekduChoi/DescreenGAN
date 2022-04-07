@@ -9,7 +9,7 @@
 	},
 	
 	"solver": {
-		"ckp_path": "./pretrained_cRaGAN/epoch20.ckp",
-		"testpath": "./cRaGAN_test/"
+		"ckp_path": "./pretrained_cRaGAN_nch32_numblk8/epoch20.ckp",
+		"testpath": "./cRaGAN_test_nch32_numblk8/"
 	}
 }

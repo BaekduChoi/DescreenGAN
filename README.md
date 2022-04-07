@@ -10,5 +10,8 @@ The training images are generated using [DIV2K dataset](https://data.vision.ee.e
 
 To train :
 
-1) Train without GAN using train_cRaGAN_nongan.py and train_cRaGAN_nongan.json
-2) Using the result from 1), train with GAN using train_cRaGAN.py and train_cRaGAN.json
+1) Train without GAN using 'train_cRaGAN_nongan.py -opt train_cRaGAN_nongan.json' with arguments -nch and -blk (nch = number of channels in RRDBs, blk = number of RRDBs)
+2) Using the result from 1), train with GAN using 'train_cRaGAN.py -opt train_cRaGAN.json' with arguments -nch and -blk
+
+Example to test:
+test_cRaGAN_hyp.py -opt test_cRaGAN_hyp.json -nch 32 -blk 8

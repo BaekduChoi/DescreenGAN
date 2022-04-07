@@ -18,14 +18,14 @@ from misc import *
 from losses import *
 
 class nongan :
-    def __init__(self,json_dir,cuda=True) :
+    def __init__(self,json_dir,cuda=True,nch=32,num_blks_mid=12) :
 
         torch.autograd.set_detect_anomaly(True)
 
         self.params = read_json(json_dir)
         self.device = torch.device('cuda') if cuda else torch.device('cpu')
 
-        self.netG = DescreenNet()
+        self.netG = DescreenNetHyp(nch,num_blks_mid)
 
         self.netG = self.netG.to(self.device)
 
