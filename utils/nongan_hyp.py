@@ -47,7 +47,7 @@ class nongan :
         # set up the optimizers and schedulers
         self.optimizerG = optim.Adam(self.netG.parameters(),lr=self.lr,betas=self.betas,amsgrad=True)
 
-        self.lr_sche_ftn = lambda epoch : 1.0 if epoch < self.lr_step else (self.lr_gamma)**(epoch-self.lr_step)
+        self.lr_sche_ftn = lambda epoch : 1.0 if epoch < self.lr_step else (self.lr_gamma)**(epoch-self.lr_step+1)
         self.schedulerG = optim.lr_scheduler.LambdaLR(self.optimizerG,self.lr_sche_ftn)
 
     def train(self) :
@@ -60,6 +60,7 @@ class nongan :
         # starting iteration
         for epoch in range(self.start_epochs,self.epochs) :
             print('Epoch = '+str(epoch+1))
+            print(self.schedulerG.get_last_lr())
 
             # training part of the iteration
             self.running_loss_detail = 0.0
@@ -97,8 +98,6 @@ class nongan :
 
             self.train_losses.append([self.running_loss_detail])
             self.val_losses.append([val_loss_detail])
-            
-            print(self.schedulerG.get_last_lr())
 
             self.saveckp(epoch)
 

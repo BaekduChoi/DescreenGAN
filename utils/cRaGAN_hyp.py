@@ -54,7 +54,7 @@ class cRaGAN :
         self.optimizerD = optim.Adam(self.netD.parameters(),lr=self.lr*self.lr_ratio,betas=self.betas,amsgrad=True)
         self.optimizerG = optim.Adam(self.netG.parameters(),lr=self.lr,betas=self.betas,amsgrad=True)
 
-        self.lr_sche_ftn = lambda epoch : 1.0 if epoch < self.lr_step else (self.lr_gamma)**(epoch-self.lr_step)
+        self.lr_sche_ftn = lambda epoch : 1.0 if epoch < self.lr_step else (self.lr_gamma)**(epoch-self.lr_step+1)
         self.schedulerD = optim.lr_scheduler.LambdaLR(self.optimizerD,self.lr_sche_ftn)
         self.schedulerG = optim.lr_scheduler.LambdaLR(self.optimizerG,self.lr_sche_ftn)
 
@@ -71,6 +71,7 @@ class cRaGAN :
         # starting iteration
         for epoch in range(self.start_epochs,self.epochs) :
             print('Epoch = '+str(epoch+1))
+            print(self.schedulerG.get_last_lr())
 
             # training part of the iteration
             self.running_loss_adv_G = 0.0
@@ -124,8 +125,6 @@ class cRaGAN :
 
             self.train_losses.append([self.running_loss_detail,self.running_loss_adv_G,self.running_loss_adv_D])
             self.val_losses.append([val_loss_detail])
-            
-            print(self.schedulerG.get_last_lr())
 
             self.saveckp(epoch)
 
