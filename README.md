@@ -1,8 +1,8 @@
-# Photorealistic descreening of halftone images using conditional generative adversarial networks (tentative title)
+# Descreening of halftone images using conditional generative adversarial networks (tentative title)
 
 Baekdu Choi (choi504@purdue.edu) and J. P. Allebach
 
-This is an implementation of photorealistic descreening using cGANs in [PyTorch](https://pytorch.org/). 
+This is an implementation of descreening using cGANs in [PyTorch](https://pytorch.org/). 
 
 VGG-based perceptual loss code is borrowed from https://gist.github.com/alper111/8233cdb0414b4cb5853f2f730ab95a49.
 
