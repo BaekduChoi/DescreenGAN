@@ -1,4 +1,4 @@
-# Descreening of halftone images using conditional generative adversarial networks (tentative title)
+# Descreening of halftone images using generative adversarial networks (tentative title)
 
 Baekdu Choi (choi504@purdue.edu) and J. P. Allebach
 
