@@ -14,4 +14,4 @@ To train :
 2) Using the result from 1), train with GAN using 'train_cRaGAN.py -opt train_cRaGAN.json' with arguments -nch and -blk
 
 Example to test:
-test_cRaGAN_hyp.py -opt test_cRaGAN_hyp.json -nch 32 -blk 8
+test_cRaGAN_hyp.py -opt test_cRaGAN_hyp.json -nch 32 -blk 12
