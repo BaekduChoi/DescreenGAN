@@ -1,16 +1,16 @@
 {
 	"datasets": {
 		"train": {
-			"root_img": "../dbsnet/images_div2k_all",
-			"root_halftone": "../dbsnet/halftones_div2k_all",
+			"root_img": "./images_div2k_all",
+			"root_halftone": "./halftones_div2k_all",
 			"img_type": ".png",
 			"batch_size": 4,
 			"n_workers": 4,
 			"use_aug": false
 		},
 		"val": {
-			"root_img": "../descreening/div2k_val_images",
-			"root_halftone": "../descreening/div2k_val_halftones",
+			"root_img": "./div2k_val_images",
+			"root_halftone": "./div2k_val_halftones",
 			"img_type": ".png"
 		}
 	},
@@ -24,10 +24,9 @@
 		"save_ckp_step": 1,
 		"use_pool": true,
 		"pretrain": false,
-		"pretrained_path": "./pretrained_nongan_nch32_numblk8/",
-		"ckp_path": "./pretrained_nongan_nch32_numblk8/epoch13.ckp",
-		"val_path": "./pretrained_nongan_nch32_numblk8/val/",
-		"prl_ckp_path": null,
+		"pretrained_path": "./pretrained_nongan_nch32_numblk12/",
+		"ckp_path": null,
+		"val_path": "./pretrained_nongan_nch32_numblk12/val/",
 		"lambda_perceptual": 0.01,
 		"lambda_detail": 1.0,
 		"beta1": 0.9,

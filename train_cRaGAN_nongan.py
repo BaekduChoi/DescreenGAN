@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Nov 13 13:49:41 2020
-
-@author: baekd
-"""
 
 import sys
 import os

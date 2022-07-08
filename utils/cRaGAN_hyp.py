@@ -111,10 +111,6 @@ class cRaGAN :
             # print the running L1 loss for G and adversarial loss for D when one epoch is finished        
             print('Finished training for epoch '+str(epoch+1))
             
-            # validation is tricky for GANs - what to use for validation?
-            # since no quantitative metric came to mind, I am just saving validation results
-            # visually inspecting them helps finding issues with training
-            # the validation results are saved in validation path
             if valloader is not None :
                 print('Validating..')
                 val_loss_detail = self.val(valloader,self.val_path,16,epoch)
@@ -134,16 +130,11 @@ class cRaGAN :
         self.getopts()
 
         # reading more hyperparameters and checkpoint saving setup
-        # head_start determines how many epochs the generator will head-start learning
         self.epochs = self.params['solver']['num_epochs']
         self.save_ckp_step = self.params['solver']['save_ckp_step']
         self.pretrained_path = self.params['solver']['pretrained_path']
         self.val_path = self.params['solver']['val_path']
         self.use_pool = self.params['solver']['use_pool']
-
-        # hvs
-        hvs = HVS().getHVS().astype(np.float32)
-        self.hvs = torch.unsqueeze(torch.unsqueeze(torch.from_numpy(hvs),0),0).to(self.device)
 
         if self.val_path[-1] != '/':
             self.val_path += '/'
@@ -204,8 +195,6 @@ class cRaGAN :
                     inputH = data['halftone']
                     inputH = inputH.to(self.device)
 
-                    GT = data['img']
-
                     H,W = inputH.shape[2], inputH.shape[3]
 
                     sy = (H%16)//2
@@ -214,7 +203,6 @@ class cRaGAN :
                     Nx = (W//16)*16
 
                     inputH = inputH[:,:,sy:sy+Ny,sx:sx+Nx]
-                    GT = GT[:,:,sy:sy+Ny,sx:sx+Nx]
 
                     outputs = self.netG(inputH)
                     
@@ -229,13 +217,6 @@ class cRaGAN :
                         imgBGR = (255*imgR).astype('uint8')
                         imname = test_dir+str(count+1)+'.png'
                         cv2.imwrite(imname,imgBGR)
-                        
-                        imgR2 = torch.zeros([img_size1,img_size2],dtype=torch.float32)
-                        imgR2[:,:] = GT[j,:,:,:].squeeze()
-                        imgR2 = imgR2.detach().numpy()
-                        imgBGR2 = (255*imgR2).astype('uint8')
-                        imname2 = test_dir+str(count+1)+'_GT.png'
-                        cv2.imwrite(imname2,imgBGR2)
 
                         imgR3 = torch.zeros([img_size1,img_size2],dtype=torch.float32)
                         imgR3[:,:] = inputH[j,:,:,:].squeeze()
