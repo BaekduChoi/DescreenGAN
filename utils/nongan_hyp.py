@@ -81,8 +81,7 @@ class nongan :
                     # tqdm update
                     t.set_postfix_str('Losses - Detail : %.4f'%(loss_detail))
                     t.update()
-                    
-            # print the running L1 loss for G and adversarial loss for D when one epoch is finished        
+                         
             print('Finished training for epoch '+str(epoch+1))
             
             if valloader is not None :
@@ -118,10 +117,6 @@ class nongan :
         if not os.path.isdir(self.val_path) :
             os.mkdir(self.val_path)
 
-        # code for resuming training
-        # if pretrain = False, the training starts from scratch as expected
-        # otherwise, the checkpoint is loaded back and training is resumed
-        # for the checkpoint saving format refer to the end of the function
         self.start_epochs = 0
         self.pretrain = self.params['solver']['pretrain']
 
@@ -217,15 +212,12 @@ class nongan :
 
         loss = loss_detail
         
-        # generator weight update
-        # for the generator, all the loss terms are used
         self.optimizerG.zero_grad()
 
         loss.backward()
 
-        # backpropagation for generator and encoder
         self.optimizerG.step()
-        # check only the L1 loss with GT colorization for the fitting procedure
+        
         self.running_loss_detail += loss_detail.item()/self.num_batches
 
         return loss_detail.item()

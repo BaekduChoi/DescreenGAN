@@ -48,9 +48,6 @@ class cRaGAN :
         self.batch_size = self.params['datasets']['train']['batch_size']
     
     def getopts(self) :
-        # set up the optimizers and schedulers
-        # two are needed for each - one for generator and one for discriminator
-        # note for discriminator smaller learning rate is used (scaled by lr_ratio)
         self.optimizerD = optim.Adam(self.netD.parameters(),lr=self.lr*self.lr_ratio,betas=self.betas,amsgrad=True)
         self.optimizerG = optim.Adam(self.netG.parameters(),lr=self.lr,betas=self.betas,amsgrad=True)
 
@@ -60,8 +57,6 @@ class cRaGAN :
 
     def train(self) :
         trainloader, valloader = create_dataloaders(self.params)
-
-        # here we use least squares adversarial loss following cycleGAN paper
         self.gan_loss = RaHingeGANLoss()
 
         self.inittrain()
@@ -107,8 +102,7 @@ class cRaGAN :
                                     ', adv_G : %.4f'%(loss_adv_G)+\
                                     ', adv_D : %.4f'%(loss_adv_D))
                     t.update()
-                    
-            # print the running L1 loss for G and adversarial loss for D when one epoch is finished        
+                       
             print('Finished training for epoch '+str(epoch+1))
             
             if valloader is not None :
@@ -145,10 +139,6 @@ class cRaGAN :
         if not os.path.isdir(self.val_path) :
             os.mkdir(self.val_path)
 
-        # code for resuming training
-        # if pretrain = False, the training starts from scratch as expected
-        # otherwise, the checkpoint is loaded back and training is resumed
-        # for the checkpoint saving format refer to the end of the function
         self.start_epochs = 0
         self.pretrain = self.params['solver']['pretrain']
 
@@ -207,7 +197,6 @@ class cRaGAN :
                     outputs = self.netG(inputH)
                     
                     img_size1,img_size2 = outputs.shape[2], outputs.shape[3]
-                    #print(outputs.shape)
                     
                     for j in range(outputs.shape[0]) :
                         imgR = torch.zeros([img_size1,img_size2],dtype=torch.float32)
@@ -239,7 +228,6 @@ class cRaGAN :
 
                 GT = data['img'].to(self.device)
 
-                # maximum img size for val is 1024x1024 due to memory issues
                 _,_,H,W = inputH.shape
                 if H > 1024 :
                     sy = (H-1024)//2
@@ -330,22 +318,18 @@ class cRaGAN :
         detail = self.netG(imgsH)
         loss_detail = self.lambda_perceptual*self.perceptual_loss(GT,detail)+self.lambda_detail*F.l1_loss(GT,detail)
 
-        # GAN for cGAN
         pred_fake = self.netD(detail)
         pred_real = self.netD(GT)
         loss_adv_G = self.gan_loss(pred_fake,pred_real)
 
         loss = loss_detail + self.lambda_adv*loss_adv_G
         
-        # generator weight update
-        # for the generator, all the loss terms are used
         self.optimizerG.zero_grad()
 
         loss.backward()
 
-        # backpropagation for generator and encoder
         self.optimizerG.step()
-        # check only the L1 loss with GT colorization for the fitting procedure
+
         self.running_loss_detail += loss_detail.item()/self.num_batches
         self.running_loss_adv_G += loss_adv_G.item()/self.num_batches
 
@@ -385,12 +369,9 @@ class cRaGAN :
         return output_vae
     
     def fitD(self,GT,output_pool) :
-        # enable the discriminator weights to be updated
+        
         for _p in self.netD.parameters() :
             _p.requires_grad_(True)
-        
-        # discriminator weight update
-        # for the discriminator only adversarial loss is needed
 
         pred_real = self.netD(GT)
         pred_fake = self.netD(output_pool)
@@ -399,11 +380,9 @@ class cRaGAN :
 
         self.optimizerD.zero_grad()
 
-        # backpropagation for the discriminator
         loss_adv_D.backward()
         self.optimizerD.step()
 
-        # checking adversarial loss for the fitting procedure
         self.running_loss_adv_D += (loss_adv_D.item())/self.num_batches
 
         return loss_adv_D.item()

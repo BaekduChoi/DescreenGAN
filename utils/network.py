@@ -11,58 +11,6 @@ from misc import default_init_weights
 import torchvision
 
 """
-    Discriminator for GAN-based implementation
-    Based on the PatchGAN structure in https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
-    Added Dropout for slower discriminator fitting
-"""
-class Discriminator(nn.Module) :
-    def __init__(self,in_ch=1,nch=64,bn=True,sn=False) :
-        super().__init__()
-        
-        if bn :
-            L = [
-                nn.Conv2d(in_ch,nch,kernel_size=4,stride=2,padding=1,padding_mode='circular'),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch,nch*2,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.BatchNorm2d(nch*2),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*2,nch*4,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.BatchNorm2d(nch*4),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*4,nch*8,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.BatchNorm2d(nch*8),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*8,nch*8,kernel_size=4,stride=1,padding=1,bias=False,padding_mode='circular'),
-                nn.BatchNorm2d(nch*8),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*8,1,kernel_size=4,stride=1,padding=1,padding_mode='circular')
-            ]
-        else :
-            L = [
-                nn.Conv2d(in_ch,nch,kernel_size=4,stride=2,padding=1,padding_mode='circular'),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch,nch*2,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*2,nch*4,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*4,nch*8,kernel_size=4,stride=2,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*8,nch*8,kernel_size=4,stride=1,padding=1,bias=False,padding_mode='circular'),
-                nn.LeakyReLU(0.2),
-                nn.Conv2d(nch*8,1,kernel_size=4,stride=1,padding=1,padding_mode='circular')
-            ]
-        
-        if sn :
-            for i in range(len(L)) :
-                if isinstance(L[i],nn.Conv2d) :
-                    L[i] = SN(L[i])
-        
-        self.block = nn.Sequential(*L)
-    
-    def forward(self,x) :
-        return self.block(x)
-
-"""
     RRDB in ESRGAN
 """
 class RDB(nn.Module) :

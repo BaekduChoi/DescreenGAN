@@ -103,10 +103,6 @@ class PerceptualLoss(torch.nn.Module):
         assert loss_type in ['mse','l1']
         self.loss = F.l1_loss if loss_type == 'l1' else F.mse_loss
 
-        # self.bl = (torchvision.models.vgg19(pretrained=True).features[:27].eval())
-        # for p in self.bl.parameters():
-        #     p.requires_grad = False
-
         blocks = []
         if before_act :
             blocks.append(torchvision.models.vgg19(pretrained=True).features[:3].eval())

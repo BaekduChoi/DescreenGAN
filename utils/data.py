@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Nov  5 16:13:20 2020
-
-@author: baekd
-"""
 
 from torch.utils.data import Dataset
 import os
